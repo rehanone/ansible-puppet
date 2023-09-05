@@ -1,0 +1,9 @@
+# code: language=ansible
+---
+- name: Install puppet-agent
+  become: true
+  community.general.zypper:
+    name: '{{ package.name }}'
+    state: present
+    disable_gpg_check: true
+    update_cache: true

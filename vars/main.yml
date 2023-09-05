@@ -1,0 +1,19 @@
+# code: language=ansible
+---
+# Defaults dictionary for puppet role
+puppet_defaults:
+  debug: '{{ puppet_debug }}'
+  source:
+    file: '{{ puppet_source_file }}'
+    package: '{{ puppet_source_package }}'
+    url: '{{ puppet_source_url }}'
+  package:
+    name: '{{ puppet_package_name }}'
+    install_directory: '{{ puppet_package_install_directory }}'
+  system:
+    binary_directory: '{{ puppet_system_install_directory }}'
+  service:
+    name: '{{ puppet_service_name }}'
+    enabled: '{{ puppet_service_enabled }}'
+    state: '{{ puppet_service_state }}'
+  state: '{{ puppet_package_state }}'

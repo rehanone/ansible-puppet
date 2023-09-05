@@ -1,0 +1,7 @@
+# code: language=ansible
+---
+- name: 'Remove directory {{ package.install_directory }}'
+  become: true
+  ansible.builtin.file:
+    path: '{{ package.install_directory }}'
+    state: absent

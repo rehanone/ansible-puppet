@@ -1,0 +1,29 @@
+# code: language=ansible
+---
+- name: Check if puppet gem is installed
+  become: true
+  ansible.builtin.stat:
+    path: '{{ package.install_directory }}/puppet/bin/gem'
+  register: gem_status
+
+- name: Check if r10k is installed
+  become: true
+  ansible.builtin.stat:
+    path: '{{ package.install_directory }}/puppet/bin/r10k'
+  register: r10k_status
+
+- name: Install r10k
+  become: true
+  ansible.builtin.command:
+    cmd: '{{ package.install_directory }}/puppet/bin/gem install r10k'
+  when: (gem_status.stat.exists) and
+        (not r10k_status.stat.exists)
+  changed_when: (gem_status.stat.exists) and
+        (not r10k_status.stat.exists)
+
+- name: Create symlinks in system install directory to r10k.
+  become: true
+  ansible.builtin.file:
+    src: '{{ package.install_directory }}/puppet/bin/r10k'
+    dest: '{{ system.binary_directory }}/r10k'
+    state: link

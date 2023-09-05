@@ -1,0 +1,11 @@
+# code: language=ansible
+---
+- name: Create symlinks in system install directory to various puppet tools.
+  become: true
+  ansible.builtin.file:
+    src: '{{ package.install_directory }}/bin/{{ item.src }}'
+    dest: '{{ system.binary_directory }}/{{ item.dest }}'
+    state: link
+  loop:
+    - { src: puppet, dest: puppet }
+    - { src: facter, dest: facter }

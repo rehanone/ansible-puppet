@@ -1,0 +1,32 @@
+---
+galaxy_info:
+  role_name: puppet
+  namespace: rehanone
+  author: Rehan Mahmood
+  description: The `ansible-puppet` installs & manages puppet-agent.
+
+  license: Apache-2.0
+
+  min_ansible_version: '2.1'
+
+  platforms:
+    - name: opensuse
+      versions:
+        - '15.4'
+    - name: Ubuntu
+      versions:
+        - bionic
+        - focal
+        - jammy
+    - name: Debian
+      versions:
+        - buster
+        - bullseye
+        - bookworm
+  galaxy_tags:
+    - puppet
+    - agent
+dependencies: []
+
+collections:
+  - community.general

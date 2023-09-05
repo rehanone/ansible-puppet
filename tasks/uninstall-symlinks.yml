@@ -1,0 +1,10 @@
+# code: language=ansible
+---
+- name: Remove symlinks in system install directory to various puppet tools.
+  become: true
+  ansible.builtin.file:
+    path: '{{ system.binary_directory }}/{{ item.dest }}'
+    state: absent
+  loop:
+    - { src: puppet, dest: puppet }
+    - { src: facter, dest: facter }

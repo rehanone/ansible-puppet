@@ -1,0 +1,7 @@
+# code: language=ansible
+---
+- name: Uninstall puppet-agent
+  become: true
+  community.general.zypper:
+    name: '{{ package.name }}'
+    state: absent

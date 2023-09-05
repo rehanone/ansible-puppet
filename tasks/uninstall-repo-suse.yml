@@ -1,0 +1,7 @@
+# code: language=ansible
+---
+- name: 'Unistall package: {{ source.package }}'
+  become: true
+  community.general.zypper:
+    name: '{{ source.package }}'
+    state: absent
