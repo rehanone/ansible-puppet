@@ -1,0 +1,5 @@
+# code: language=ansible
+---
+puppet_source_package: 'puppet8-release'
+puppet_source_file: 'puppet8-release-sles-15.noarch.rpm'
+puppet_source_url: 'https://yum.puppet.com'

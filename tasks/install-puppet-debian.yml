@@ -1,0 +1,7 @@
+# code: language=ansible
+---
+- name: Install puppet-agent
+  become: true
+  ansible.builtin.apt:
+    name: '{{ package.name }}'
+    update_cache: true

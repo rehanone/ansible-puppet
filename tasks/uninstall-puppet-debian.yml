@@ -1,0 +1,7 @@
+# code: language=ansible
+---
+- name: Uninstall puppet-agent
+  become: true
+  ansible.builtin.apt:
+    name: '{{ package.name }}'
+    state: absent

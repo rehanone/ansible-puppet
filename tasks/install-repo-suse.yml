@@ -1,0 +1,25 @@
+# code: language=ansible
+---
+- name: 'Check installed package: {{ source.package }}'
+  become: true
+  ansible.builtin.command:
+    cmd: 'rpm -q {{ source.package }}' # noqa command-instead-of-module
+  register: puppet_release_package_status
+  failed_when: puppet_release_package_status.rc > 1
+  changed_when: puppet_release_package_status.rc == 1
+
+- name: Download source repository package from the internet
+  become: true
+  ansible.builtin.get_url:
+    url: '{{ source.url }}/{{ source.file }}'
+    dest: '/tmp/{{ source.file }}'
+    mode: '0755'
+  when: puppet_release_package_status.rc == 1
+
+- name: 'Install package: {{ source.file }}'
+  become: true
+  community.general.zypper:
+    name: '/tmp/{{ source.file }}'
+    state: present
+    disable_gpg_check: true
+  when: puppet_release_package_status.rc == 1

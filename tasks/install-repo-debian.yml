@@ -1,0 +1,29 @@
+# code: language=ansible
+---
+- name: Install xz-utils package for deb extraction
+  become: true
+  ansible.builtin.package:
+    name: xz-utils
+    state: present
+
+- name: 'Check installed package: {{ source.package }}'
+  become: true
+  ansible.builtin.command:
+    cmd: 'dpkg-query -W {{ source.package }}'
+  register: puppet_release_package_status
+  failed_when: puppet_release_package_status.rc > 1
+  changed_when: puppet_release_package_status.rc == 1
+
+- name: Download source repository package from the internet
+  become: true
+  ansible.builtin.get_url:
+    url: '{{ source.url }}/{{ source.file }}'
+    dest: '/tmp/{{ source.file }}'
+    mode: '0755'
+  when: puppet_release_package_status.rc == 1
+
+- name: 'Install package: {{ source.file }}'
+  become: true
+  ansible.builtin.apt:
+    deb: '/tmp/{{ source.file }}'
+  when: puppet_release_package_status.rc == 1

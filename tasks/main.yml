@@ -1,0 +1,4 @@
+# code: language=ansible
+---
+- name: Main puppet tasks
+  ansible.builtin.include_tasks: puppet.yml

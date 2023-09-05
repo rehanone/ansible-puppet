@@ -1,0 +1,7 @@
+---
+- name: Ensure puppet service is in correct state
+  become: true
+  ansible.builtin.service:
+    name: '{{ service.name }}'
+    state: '{{ service.state }}'
+    enabled: '{{ service.enabled }}'

@@ -1,0 +1,8 @@
+# code: language=ansible
+---
+- name: 'Unistall package: {{ source.package }}'
+  become: true
+  ansible.builtin.apt:
+    name: '{{ source.package }}'
+    purge: true
+    state: absent

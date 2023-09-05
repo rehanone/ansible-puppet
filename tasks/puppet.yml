@@ -1,0 +1,119 @@
+# code: language=ansible
+---
+# Main tasks file for role
+- name: Setting OS variables
+  ansible.builtin.include_vars: "{{ lookup('ansible.builtin.first_found', params) }}"
+  vars:
+    params:
+      files:
+        - '{{ ansible_facts.distribution }}-{{ ansible_facts.distribution_release }}.yml'
+        - '{{ ansible_facts.os_family }}.yml'
+        - default.yml
+      paths:
+        - vars
+
+- name: Set puppet_config
+  ansible.builtin.set_fact:
+    puppet_config: >-
+      {{ puppet_defaults |
+        ansible.builtin.combine( (puppet | default(puppet_defaults)), recursive=true )
+      }}
+
+- name: Print puppet_config dictionary if debug flag is set
+  ansible.builtin.debug:
+    var: puppet_config
+  when: puppet_config.debug
+
+# Main tasks file for role puppet
+
+## Install tasks
+- name: Install | include task > install-repo-debian.yml
+  ansible.builtin.include_tasks:
+    file: install-repo-debian.yml
+  vars:
+    source: '{{ puppet_config.source }}'
+  when: ansible_facts['os_family'] == 'Debian' and puppet_config.state == 'present'
+- name: Install | include task > install-repo-suse.yml
+  ansible.builtin.include_tasks:
+    file: install-repo-suse.yml
+  vars:
+    source: '{{ puppet_config.source }}'
+  when: ansible_facts['os_family'] == 'Suse' and puppet_config.state == 'present'
+- name: Install | include task > install-puppet-debian.yml
+  ansible.builtin.include_tasks:
+    file: install-puppet-debian.yml
+  vars:
+    package: '{{ puppet_config.package }}'
+  when: ansible_facts['os_family'] == 'Debian' and puppet_config.state == 'present'
+- name: Install | include task > install-repo-suse.yml
+  ansible.builtin.include_tasks:
+    file: install-puppet-suse.yml
+  vars:
+    package: '{{ puppet_config.package }}'
+  when: ansible_facts['os_family'] == 'Suse' and puppet_config.state == 'present'
+- name: Install | include task > install-symlinks.yml
+  ansible.builtin.include_tasks:
+    file: install-symlinks.yml
+  vars:
+    package: '{{ puppet_config.package }}'
+    system: '{{ puppet_config.system }}'
+  when: puppet_config.state == 'present'
+- name: Install | include task > install-r10k.yml
+  ansible.builtin.include_tasks:
+    file: install-r10k.yml
+  vars:
+    package: '{{ puppet_config.package }}'
+    system: '{{ puppet_config.system }}'
+  when: puppet_config.state == 'present'
+- name: Install | include task > service.yml
+  ansible.builtin.include_tasks:
+    file: service.yml
+  vars:
+    service: '{{ puppet_config.service }}'
+  when: puppet_config.state == 'present'
+
+# Uninstall tasks
+- name: Uinstall | include task > uninstall-r10k.yml
+  ansible.builtin.include_tasks:
+    file: uninstall-r10k.yml
+  vars:
+    package: '{{ puppet_config.package }}'
+    system: '{{ puppet_config.system }}'
+  when: puppet_config.state == 'absent'
+- name: Uninstall | include task > uninstall-symlinks.yml
+  ansible.builtin.include_tasks:
+    file: uninstall-symlinks.yml
+  vars:
+    package: '{{ puppet_config.package }}'
+    system: '{{ puppet_config.system }}'
+  when: puppet_config.state == 'absent'
+- name: Uninstall | include task > uninstall-puppet-suse.yml
+  ansible.builtin.include_tasks:
+    file: uninstall-puppet-suse.yml
+  vars:
+    package: '{{ puppet_config.package }}'
+  when: ansible_facts['os_family'] == 'Suse' and puppet_config.state == 'absent'
+- name: Uninstall | include task > uninstall-puppet-debian.yml
+  ansible.builtin.include_tasks:
+    file: uninstall-puppet-debian.yml
+  vars:
+    package: '{{ puppet_config.package }}'
+  when: ansible_facts['os_family'] == 'Debian' and puppet_config.state == 'absent'
+- name: Uninstall | include task > uninstall-repo-suse.yml
+  ansible.builtin.include_tasks:
+    file: uninstall-repo-suse.yml
+  vars:
+    source: '{{ puppet_config.source }}'
+  when: ansible_facts['os_family'] == 'Suse' and puppet_config.state == 'absent'
+- name: Uninstall | include task > uninstall-repo-debian.yml
+  ansible.builtin.include_tasks:
+    file: uninstall-repo-debian.yml
+  vars:
+    source: '{{ puppet_config.source }}'
+  when: ansible_facts['os_family'] == 'Debian' and puppet_config.state == 'absent'
+- name: Uninstall | include task > post-uninstall.yml
+  ansible.builtin.include_tasks:
+    file: post-uninstall.yml
+  vars:
+    package: '{{ puppet_config.package }}'
+  when: puppet_config.state == 'absent'
