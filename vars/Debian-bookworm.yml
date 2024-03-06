@@ -1,7 +1,5 @@
 # code: language=ansible
 ---
 puppet_source_package: 'puppet8-release'
-# source_file: 'puppet8-release-bookworm.deb'
-# The release for bookworm is not avalible yet.
-puppet_source_file: 'puppet8-release-bullseye.deb'
+puppet_source_file: 'puppet8-release-bookworm.deb'
 puppet_source_url: 'https://apt.puppetlabs.com'
