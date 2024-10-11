@@ -1,3 +1,9 @@
+## 0.0.4 (October 11, 2024)
+
+**Features:**
+
+- Added initial support for `Debian 13 Trixie`.
+
 ## 0.0.3 (May 9, 2024)
 
 **Features:**
