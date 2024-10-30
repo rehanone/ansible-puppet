@@ -1,3 +1,9 @@
+## 0.0.5 (October 31, 2024)
+
+**Features:**
+
+- Correct repository for `Ubuntu 24.04` release of puppet.
+
 ## 0.0.4 (October 11, 2024)
 
 **Features:**
