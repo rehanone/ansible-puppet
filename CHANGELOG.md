@@ -1,3 +1,9 @@
+## 0.1.0 (April 8, 2025)
+
+**Features:**
+
+- Switch all upstream puppet repositories from Official Puppet to a new OSS fork Openvox.
+
 ## 0.0.5 (October 31, 2024)
 
 **Features:**

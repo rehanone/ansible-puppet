@@ -4,7 +4,7 @@
 # Default value for debug is false
 puppet_debug: false
 
-puppet_package_name: 'puppet-agent'
+puppet_package_name: 'openvox-agent'
 puppet_package_state: present
 puppet_package_install_directory: '/opt/puppetlabs'
 

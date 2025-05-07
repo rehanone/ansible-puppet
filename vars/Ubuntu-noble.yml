@@ -1,5 +1,5 @@
 # code: language=ansible
 ---
-puppet_source_package: 'puppet8-release'
-puppet_source_file: 'puppet8-release-noble.deb'
-puppet_source_url: 'https://apt.puppetlabs.com'
+puppet_source_package: 'openvox8-release'
+puppet_source_file: 'openvox8-release-ubuntu24.04.deb'
+puppet_source_url: 'https://apt.overlookinfratech.com'

@@ -8,6 +8,9 @@ More information on `puppet-agent` installation on various platforms can be foun
   - [https://www.puppet.com/docs/puppet/8/install_agents#install_agents](https://www.puppet.com/docs/puppet/8/install_agents#install_agents)
 
 
+*Note: As of version 0.1.0, the upstream puppet changed from official Puppet to a new open source fork called [Openvox](https://voxpupuli.org/openvox/install/).* 
+
+
 Requirements
 ------------
 
