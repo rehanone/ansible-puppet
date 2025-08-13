@@ -1,3 +1,9 @@
+## 0.1.1 (Auguest 11, 2025)
+
+**Features:**
+
+- Correct repository for `Debian 13` release of openvox.
+
 ## 0.1.0 (April 8, 2025)
 
 **Features:**
