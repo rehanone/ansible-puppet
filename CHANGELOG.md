@@ -1,3 +1,10 @@
+## 0.2.0 (March 24, 2026)
+
+**Features:**
+
+- Added initial support for `Ubuntu 26.04`.
+- Switch all upstream puppet repositories from old `overlookinfratech.com` to new `voxpupuli.org` Openvox repository.
+
 ## 0.1.1 (Auguest 11, 2025)
 
 **Features:**
